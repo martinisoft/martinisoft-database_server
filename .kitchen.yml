@@ -7,6 +7,7 @@ platforms:
     box: canonical-ubuntu-12.04
     box_url: http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box
     require_chef_omnibus: true
+    use_vagrant_berkshelf_plugin: true
 
 suites:
 - name: default
