@@ -17,5 +17,5 @@
 # limitations under the License.
 #
 
-include_recipe "martinisoft-postgres::server"
+include_recipe "martinisoft-postgresql::server"
 

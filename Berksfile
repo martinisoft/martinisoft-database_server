@@ -2,4 +2,4 @@ site :opscode
 
 metadata
 
-cookbook 'martinisoft-postgres', github: 'martinisoft/martinisoft-postgres'
+cookbook 'martinisoft-postgresql', github: 'martinisoft/martinisoft-postgresql'
