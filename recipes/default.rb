@@ -17,34 +17,5 @@
 # limitations under the License.
 #
 
-# Running in solo mode, set default password to 'postgres'
-if Chef::Config[:solo]
-  postgres_password = "3175bce1d3201d16594cebf9d7eb3f9d"
-else
-  postgres_password = begin
-                        password = Chef::EncryptedDataBagItem.load("martinisoftware", "database")
-                        password["password"]["postgres"]
-                      rescue => ex
-                        if ex.class == Errno::ENOENT
-                          Chef::Application.fatal!("Could not decrypt data bag! (#{ex})")
-                        else
-                          Chef::Application.fatal!(["Data bag 'martinisoftware' not found!",
-                                                   "Refer to the README for instructions."].join(' '))
-                        end
-                      end
-end
-
-# Set the postgres user password via databag
-node.normal["postgresql"]["password"]["postgres"] = postgres_password
-
-# Only allow Unix Socket connections
-node.normal['postgresql']['pg_hba'] = [
-  {:type => 'local', :db => 'all', :user => 'postgres', :addr => nil, :method => 'ident'},
-  {:type => 'local', :db => 'all', :user => 'all', :addr => nil, :method => 'ident'}
-]
-
-include_recipe "postgresql"
-include_recipe "postgresql::server"
-include_recipe "postgresql::contrib"
-include_recipe "postgresql::config_pgtune"
+include_recipe "martinisoft-postgres::server"
 
